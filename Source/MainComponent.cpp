@@ -50,7 +50,6 @@ MainComponent::~MainComponent()
 void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
 {
     currentSampleRate = sampleRate;
-    updateFrequency();
 
     for (int i = 0; i < waveTableSize; i++)
     {
