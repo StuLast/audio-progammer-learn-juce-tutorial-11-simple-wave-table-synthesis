@@ -50,7 +50,6 @@ MainComponent::~MainComponent()
 void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
 {
     currentSampleRate = sampleRate;
-    updateFrequency();
 
     for (int i = 0; i < waveTableSize; i++)
     {
@@ -69,7 +68,7 @@ void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& buffe
         float aSampleValue = waveTable[(int)phase] * amplitude;
         leftChannel[sample] = aSampleValue;
         rightChannel[sample] = aSampleValue;
-        phase = fmod((phase + increment), waveTableSize);
+
     }
 }
 
@@ -99,6 +98,7 @@ void MainComponent::updateFrequency()
 {
     frequency = frequencySlider.getValue();
     increment = frequency * waveTableSize / currentSampleRate;
+    phase = fmod((phase + increment), waveTableSize);
 }
 
 void MainComponent::updateAmplitude()
